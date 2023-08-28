@@ -23,6 +23,9 @@ class VistaTesserati(QWidget):
         self.pushButtonCerca = QtWidgets.QPushButton()
         self.pushButtonCerca.setObjectName("pushButtonCerca")
         self.gridLayout.addWidget(self.pushButtonCerca, 1, 2, 1, 1)
+        self.pushButtonTutti = QtWidgets.QPushButton()
+        self.pushButtonTutti.setObjectName("pushButtonTutti")
+        self.gridLayout.addWidget(self.pushButtonTutti, 1, 3, 1, 1)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.pushButtonDettagli = QtWidgets.QPushButton()
@@ -66,6 +69,7 @@ class VistaTesserati(QWidget):
         self.pushButtonNuovo.setText("Nuovo Tesserato")
         self.label.setText("Tesserati:")
         self.pushButtonIndietro.setText("Indietro")
+        self.pushButtonTutti.setText("Mostra Tutti")
 
         self.updateList()
 
@@ -74,6 +78,8 @@ class VistaTesserati(QWidget):
         self.pushButtonElimina.clicked.connect(self.eliminaTesserato)
         self.pushButtonModifica.clicked.connect(self.modificaTesserato)
         self.pushButtonDettagli.clicked.connect(self.dettaglioTesserato)
+        self.pushButtonCerca.clicked.connect(self.cerca)
+        self.pushButtonTutti.clicked.connect(self.mostraTutti)
 
         self.setLayout(self.gridLayout)
         self.resize(1000, 800)
@@ -81,6 +87,32 @@ class VistaTesserati(QWidget):
 
     def indietro(self):
         self.close()
+
+    def mostraTutti(self):
+        self.updateList()
+
+    def cerca(self):
+        campoRicerca = self.lineEditCerca.text()
+        controller = GestioneTesserati()
+        self.result =[]
+        self.result = controller.ricercaPerNominativo(campoRicerca)
+        print(self.result)
+
+        try:
+            listview_model = QStandardItemModel(self.listWidget)
+            for tesserato in self.result:
+                item = QStandardItem()
+                nome = f"{tesserato.nome} {tesserato.cognome} - Codice: {tesserato.codice}"
+                item.setText(nome)
+                item.setEditable(False)
+                font = item.font()
+                font.setPointSize(18)
+                item.setFont(font)
+                listview_model.appendRow(item)
+            self.listWidget.setModel(listview_model)
+        except Exception as exc:
+            print('error: {0}'.format(exc))
+
 
     def eliminaTesserato(self):
         try:

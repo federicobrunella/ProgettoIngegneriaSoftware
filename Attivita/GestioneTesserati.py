@@ -69,3 +69,15 @@ class GestioneTesserati:
             if(tesserato.codice == codice):
                 return tesserato
 
+    def ricercaPerNominativo(self, campoRicerca):
+        self.result = []
+
+        self.tesserati = []
+        self.tesserati = self.getAllTesserati()
+
+        for tesserato in self.tesserati:
+            if (campoRicerca in tesserato.nome) or (campoRicerca in tesserato.cognome):
+                self.result.append(tesserato)
+
+        return self.result
+
