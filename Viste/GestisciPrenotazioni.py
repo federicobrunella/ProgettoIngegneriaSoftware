@@ -1,5 +1,10 @@
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
+from PyQt5.QtGui import QStandardItem, QStandardItemModel
+from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QListView
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+from Attivita.GestionePrenotazioni import GestionePrenotazioni
+from Viste.NuovaPrenotazione import VistaNuovaPrenotazione
+
 
 class VistaPrenotazioni(QWidget):
 
@@ -15,9 +20,9 @@ class VistaPrenotazioni(QWidget):
         self.ricercaNome = QtWidgets.QLineEdit()
         self.ricercaNome.setObjectName("ricercaNome")
         self.gridLayout.addWidget(self.ricercaNome, 1, 0, 1, 1)
-        self.listView = QtWidgets.QListView()
-        self.listView.setObjectName("listView")
-        self.gridLayout.addWidget(self.listView, 2, 0, 1, 5)
+        self.listWidget = QListView()
+        self.listWidget.setObjectName("listWidget")
+        self.gridLayout.addWidget(self.listWidget, 2, 0, 1, 5)
         self.pushButtonCercaNome = QtWidgets.QPushButton()
         self.pushButtonCercaNome.setObjectName("pushButtonCercaNome")
         self.gridLayout.addWidget(self.pushButtonCercaNome, 1, 1, 1, 1)
@@ -46,7 +51,10 @@ class VistaPrenotazioni(QWidget):
         self.pushButtonNuovaPrenotazione.setText("Nuova Prenotazione")
         self.pushButtonIndietro.setText("Indietro")
 
+        self.updateList()
+
         self.pushButtonIndietro.clicked.connect(self.indietro)
+        self.pushButtonNuovaPrenotazione.clicked.connect(self.nuovaPrenotazione)
 
         self.setLayout(self.gridLayout)
         self.resize(1000, 800)
@@ -54,3 +62,33 @@ class VistaPrenotazioni(QWidget):
 
     def indietro(self):
         self.close()
+
+    def loadPrenotazioni(self):
+        controller = GestionePrenotazioni()
+        self.prenotazioni = controller.getAllPrenotazioni()
+
+    def nuovaPrenotazione(self):
+        #devo identificare l'ultimo codice salvato e usare in ordine il successivo
+        controller = GestionePrenotazioni()
+        codice = controller.getLastCodice()
+        self.vista_inserimento_nuova_prenotazione = VistaNuovaPrenotazione(codice+1, callback=self.updateList)
+        self.vista_inserimento_nuova_prenotazione.show()
+
+    def updateList(self):
+        self.prenotazioni = []
+        self.loadPrenotazioni()
+
+        try:
+            listview_model = QStandardItemModel(self.listWidget)
+            for prenotazione in self.prenotazioni:
+                item = QStandardItem()
+                nome = f"Id: {prenotazione.idPrenotante} - Inizio: {prenotazione.oraInizio} Fine: {prenotazione.oraFine}"
+                item.setText(nome)
+                item.setEditable(False)
+                font = item.font()
+                font.setPointSize(18)
+                item.setFont(font)
+                listview_model.appendRow(item)
+            self.listWidget.setModel(listview_model)
+        except Exception as exc:
+            print('error: {0}'.format(exc))
