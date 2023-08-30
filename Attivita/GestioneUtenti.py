@@ -39,3 +39,11 @@ class GestioneUtenti:
 
         self.salvaAllUtenti(self.utenti)
         self.callback()
+
+    def ricercaPerCodice(self, codice):
+        self.utenti = []
+        self.utenti = self.getAllUtenti()
+
+        for utente in self.utenti:
+            if utente.codice == codice:
+                return utente
