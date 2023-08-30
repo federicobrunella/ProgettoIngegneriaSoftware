@@ -49,22 +49,40 @@ class GestionePrenotazioni:
     def ricercaPerData(self, campoRicerca):
         self.result = []
 
-        ###
-        self.formatoData = "%Y-%m-%d"
-        self.data= datetime.strptime(campoRicerca, self.formatoData)
 
         self.prenotazioni = []
         self.prenotazioni = self.getAllPrenotazioni()
 
+
+
         try:
             for prenotazione in self.prenotazioni:
-                if self.data in datetime(prenotazione.oraInizio):
-                    self.result.append(prenotazione)
+                try:
+                    if campoRicerca == prenotazione.oraInizio.date():
+                        self.result.append(prenotazione)
+                except Exception as ex:
+                    print('error ricercaData'.format(ex))
+                    print(prenotazione.oraInizio.date())
+                    print(campoRicerca)
 
         except Exception as exc:
             print('error ricercaData'.format(exc))
 
         return self.result
 
+
+    def eliminaPrenotazione(self, id, callback=None):
+        self.callback = callback
+        self.prenotazioni = []
+        self.prenotazioni = self.getAllPrenotazioni()
+        try:
+            for prenotazione in self.prenotazioni:
+                if(prenotazione.id == id):
+                    self.prenotazioni.remove(prenotazione)
+        except Exception as ex:
+            print('Error: eliminaPrenotazione'.format(ex))
+            print(id)
+        self.salvaAllPrenotazioni(self.prenotazioni)
+        self.callback()
 
 

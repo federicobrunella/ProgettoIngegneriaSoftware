@@ -74,6 +74,10 @@ class VistaPrenotazioni(QWidget):
         self.pushButtonNuovaPrenotazione.clicked.connect(self.nuovaPrenotazione)
         self.pushButtonCercaNome.clicked.connect(self.cercaPerPrenotante)
         self.pushButtonCercaData.clicked.connect(self.cercaPerData)
+        self.pushButton.clicked.connect(self.mostraTutti)
+        self.pushButtonElimina.clicked.connect(self.eliminaPrenotazione)
+        self.pushButtonModifica.clicked.connect(self.modificaPrenotazione)
+        self.pushButtonDettaglio.clicked.connect(self.dettaglioPrenotazione)
 
         self.setLayout(self.gridLayout)
         self.resize(1000, 800)
@@ -81,6 +85,9 @@ class VistaPrenotazioni(QWidget):
 
     def indietro(self):
         self.close()
+
+    def mostraTutti(self):
+        self.updateList()
 
     def loadPrenotazioni(self):
         controller = GestionePrenotazioni()
@@ -136,14 +143,14 @@ class VistaPrenotazioni(QWidget):
             print('error cercaPerPrenotante'.format(exc))
 
     def cercaPerData(self):
-            campoRicerca = self.ricercaData.text()
+            campoRicerca = self.dateEdit.date()
             controller = GestionePrenotazioni()
             self.result = []
             self.result = controller.ricercaPerData(campoRicerca)
             print(self.result)
 
             try:
-                listview_model = QStandardItemModel(self.listWidget)
+                listview_model = QStandardItemModel(self.listView)
                 for prenotazione in self.result:
                     item = QStandardItem()
                     nome = f"Id: {prenotazione.idPrenotante} - Inizio: {prenotazione.oraInizio} Fine: {prenotazione.oraFine}"
@@ -153,6 +160,44 @@ class VistaPrenotazioni(QWidget):
                     font.setPointSize(18)
                     item.setFont(font)
                     listview_model.appendRow(item)
-                self.listWidget.setModel(listview_model)
+                self.listView.setModel(listview_model)
             except Exception as exc:
-                print('error cercaPerPrenotante'.format(exc))
+                print('error cercaPerData'.format(exc))
+
+
+    def eliminaPrenotazione(self):
+        try:
+            ###
+            selected = self.listWidget.selectedIndexes()[0].data()
+            id = int(selected.split("-")[1].strip().split(" ")[1])
+            print(id)
+            controller = GestionePrenotazioni()
+            controller.eliminaPrenotazione(id=id, callback=self.updateList)
+        except Exception as exc:
+            print('error: eliminaPrenotazione' .format(exc))
+            return
+
+    def modificaPrenotazione(self):
+        try:
+            ###
+            selected = self.listWidget.selectedIndexes()[0].data()
+            codice = int(selected.split("-")[1].strip().split(" ")[1])
+
+            self.vista_modifica_prenotazione = VistaModificaPrenotazione(codice=codice, callback=self.updateList)
+            self.vista_modifica_prenotazione.show()
+        except IndexError:
+            print("INDEX ERROR")
+            return
+
+    def dettaglioPrenotazione(self):
+        try:
+            ###
+            selected = self.listWidget.selectedIndexes()[0].data()
+            codice = int(selected.split("-")[1].strip().split(" ")[1])
+            print(codice)
+
+            self.vista_dettaglio_prenotazione = VistaDettaglioPrenotazione(codice=codice)
+            self.vista_dettaglio_prenotazione.show()
+        except IndexError:
+            print("INDEX ERROR")
+            return
