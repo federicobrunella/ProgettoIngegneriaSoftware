@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from Attivita.GestionePrenotazioni import GestionePrenotazioni
 from Viste.NuovaPrenotazione import VistaNuovaPrenotazione
+from Viste.ModificaPrenotazione import VistaModificaPrenotazione
 
 
 class VistaPrenotazioni(QWidget):
@@ -108,7 +109,7 @@ class VistaPrenotazioni(QWidget):
             listview_model = QStandardItemModel(self.listView)
             for prenotazione in self.prenotazioni:
                 item = QStandardItem()
-                nome = f"Id: {prenotazione.idPrenotante} - Inizio: {prenotazione.oraInizio} Fine: {prenotazione.oraFine}"
+                nome = f"Tesserato: {prenotazione.idPrenotante} - Prenotazione: {prenotazione.id} - Inizio: {prenotazione.oraInizio} Fine: {prenotazione.oraFine}"
                 item.setText(nome)
                 item.setEditable(False)
                 font = item.font()
@@ -131,7 +132,7 @@ class VistaPrenotazioni(QWidget):
             listview_model = QStandardItemModel(self.listView)
             for prenotazione in self.result:
                 item = QStandardItem()
-                nome = f"Id: {prenotazione.idPrenotante} - Inizio: {prenotazione.oraInizio} Fine: {prenotazione.oraFine}"
+                nome = f"Tesserato: {prenotazione.idPrenotante} - Prenotazione: {prenotazione.id} - Inizio: {prenotazione.oraInizio} Fine: {prenotazione.oraFine}"
                 item.setText(nome)
                 item.setEditable(False)
                 font = item.font()
@@ -153,7 +154,7 @@ class VistaPrenotazioni(QWidget):
                 listview_model = QStandardItemModel(self.listView)
                 for prenotazione in self.result:
                     item = QStandardItem()
-                    nome = f"Id: {prenotazione.idPrenotante} - Inizio: {prenotazione.oraInizio} Fine: {prenotazione.oraFine}"
+                    nome = f"Tesserato: {prenotazione.idPrenotante} - Prenotazione: {prenotazione.id} - Inizio: {prenotazione.oraInizio} Fine: {prenotazione.oraFine}"
                     item.setText(nome)
                     item.setEditable(False)
                     font = item.font()
@@ -167,23 +168,19 @@ class VistaPrenotazioni(QWidget):
 
     def eliminaPrenotazione(self):
         try:
-            ###
-            selected = self.listWidget.selectedIndexes()[0].data()
+            selected = self.listView.selectedIndexes()[0].data()
             id = int(selected.split("-")[1].strip().split(" ")[1])
-            print(id)
             controller = GestionePrenotazioni()
             controller.eliminaPrenotazione(id=id, callback=self.updateList)
         except Exception as exc:
-            print('error: eliminaPrenotazione' .format(exc))
+            print("INDEX ERROR")
             return
 
     def modificaPrenotazione(self):
         try:
-            ###
-            selected = self.listWidget.selectedIndexes()[0].data()
-            codice = int(selected.split("-")[1].strip().split(" ")[1])
-
-            self.vista_modifica_prenotazione = VistaModificaPrenotazione(codice=codice, callback=self.updateList)
+            selected = self.listView.selectedIndexes()[0].data()
+            id = int(selected.split("-")[1].strip().split(" ")[1])
+            self.vista_modifica_prenotazione = VistaModificaPrenotazione(id=id, callback=self.updateList)
             self.vista_modifica_prenotazione.show()
         except IndexError:
             print("INDEX ERROR")
@@ -191,12 +188,9 @@ class VistaPrenotazioni(QWidget):
 
     def dettaglioPrenotazione(self):
         try:
-            ###
-            selected = self.listWidget.selectedIndexes()[0].data()
-            codice = int(selected.split("-")[1].strip().split(" ")[1])
-            print(codice)
-
-            self.vista_dettaglio_prenotazione = VistaDettaglioPrenotazione(codice=codice)
+            selected = self.listView.selectedIndexes()[0].data()
+            id = int(selected.split("-")[1].strip().split(" ")[1])
+            self.vista_dettaglio_prenotazione = VistaDettaglioPrenotazione(codice=id)
             self.vista_dettaglio_prenotazione.show()
         except IndexError:
             print("INDEX ERROR")

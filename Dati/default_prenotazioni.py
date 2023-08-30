@@ -6,17 +6,17 @@ from Attivita.Prenotazione import Prenotazione
 prenotazione1 = Prenotazione(1, 1,
                              datetime(year=2023, month=12, day=12, hour=14, minute=0),
                              datetime(year=2023, month=12, day=12, hour=15, minute=0),
-                             1,False)
+                             1,0)
 
 prenotazione2 = Prenotazione(2, 1,
                              datetime(year=2023, month=12, day=12, hour=15, minute=0),
                              datetime(year=2023, month=12, day=12, hour=16, minute=0),
-                             1,False)
+                             1,0)
 
 prenotazione3 = Prenotazione(3, 1,
                              datetime(year=2023, month=12, day=12, hour=16, minute=0),
                              datetime(year=2023, month=12, day=12, hour=17, minute=0),
-                             1,False)
+                             1,2)
 
 
 

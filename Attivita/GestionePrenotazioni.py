@@ -85,5 +85,26 @@ class GestionePrenotazioni:
         self.salvaAllPrenotazioni(self.prenotazioni)
         self.callback()
 
+    def ricercaPerId(self, id):
+        self.prenotazioni = []
+        self.prenotazioni = self.getAllPrenotazioni()
+
+        for prenotazione in self.prenotazioni:
+            if prenotazione.id == id:
+                return prenotazione
+
+    def modificaPrenotazione(self, id, prenotazione):
+        self.prenotazioni = []
+        self.prenotazioni = self.getAllPrenotazioni()
+
+        for pren in self.prenotazioni:
+            if pren.id == id:
+                pren.idPrenotante = prenotazione.idPrenotante
+                pren.numPedana = prenotazione.numPedana
+                pren.oraInizio = prenotazione.oraInizio
+                pren.oraFine = prenotazione.oraFine
+                pren.corso = prenotazione.corso
+
+        self.salvaAllPrenotazioni(self.prenotazioni)
 
 
