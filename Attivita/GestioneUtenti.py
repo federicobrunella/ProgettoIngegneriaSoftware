@@ -21,14 +21,14 @@ class GestioneUtenti:
         with open('Dati/utenti.pickle', 'wb') as f:
             pickle.dump(utenti, f, pickle.HIGHEST_PROTOCOL)
 
-    def aggiungiTeserato(self, utente):
+    def aggiungiUtente(self, utente):
         self.utenti = []
         self.utenti = self.getAllUtenti()
 
         self.utenti.append(utente)
         self.salvaAllUtenti(self.utenti)
 
-    def eliminaTesserato(self, codice, callback=None):
+    def eliminaUtente(self, codice, callback=None):
         self.callback = callback
         self.utenti = []
         self.utenti = self.getAllUtenti()

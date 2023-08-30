@@ -109,8 +109,6 @@ class VistaModificaTesserato(QWidget):
     def salva(self):
         self.istruttore = self.checkBoxIstruttore.checkState()
         self.certificato = self.checkBoxCertificato.checkState()
-        print(self.certificato)
-        print(self.istruttore)
         self.nome = self.lineEditNome.text()
         self.cognome = self.lineEditCognome.text()
         self.codFiscale = self.lineEditCodFiscale.text()

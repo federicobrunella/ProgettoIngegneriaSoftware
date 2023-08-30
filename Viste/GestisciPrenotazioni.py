@@ -197,7 +197,6 @@ class VistaPrenotazioni(QWidget):
             self.vista_dettaglio_prenotazione = VistaDettaglioPrenotazione(id=id)
             self.vista_dettaglio_prenotazione.show()
         except Exception as exc:
-            print('error dettaglio' .format(exc))
-            print(id)
+            print("INDEX ERROR")
             return
 

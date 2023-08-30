@@ -6,6 +6,7 @@ from Viste.ImpostazioneOrari import VistaOrari
 from Viste.ImpostazionePrezzi import VistaPrezzi
 from Viste.ImpostazioniPedane import VistaPedane
 from Viste.DettaglioUtente import VistaDettaglioUtente
+from Viste.NuovoUtente import VistaNuovoUtente
 
 from Attivita.GestioneUtenti import GestioneUtenti
 
@@ -108,7 +109,11 @@ class VistaSistema(QWidget):
         self.vista_pedande.show()
 
     def nuovoUtente(self):
-        pass
+        controller = GestioneUtenti()
+        codice = controller.getLastCodice()
+
+        self.vista_nuovo_utente = VistaNuovoUtente(codice=codice+1, callback=self.updateList)
+        self.vista_nuovo_utente.show()
 
     def eliminaUtente(self):
         try:
@@ -116,7 +121,7 @@ class VistaSistema(QWidget):
             codice = int(selected.split("-")[1].strip().split(" ")[1])
             print(codice)
             controller = GestioneUtenti()
-            controller.eliminaTesserato(codice=codice, callback=self.updateList)
+            controller.eliminaUtente(codice=codice, callback=self.updateList)
         except IndexError:
             print("INDEX ERROR")
             return
