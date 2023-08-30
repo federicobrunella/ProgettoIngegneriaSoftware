@@ -1,4 +1,6 @@
 import pickle
+from datetime import date, datetime
+
 
 class GestionePrenotazioni:
     def getAllPrenotazioni(self):
@@ -41,6 +43,26 @@ class GestionePrenotazioni:
 
         except Exception as exc:
             print('error ricercaPrenotante'.format(exc))
+
+        return self.result
+
+    def ricercaPerData(self, campoRicerca):
+        self.result = []
+
+        ###
+        self.formatoData = "%Y-%m-%d"
+        self.data= datetime.strptime(campoRicerca, self.formatoData)
+
+        self.prenotazioni = []
+        self.prenotazioni = self.getAllPrenotazioni()
+
+        try:
+            for prenotazione in self.prenotazioni:
+                if self.data in datetime(prenotazione.oraInizio):
+                    self.result.append(prenotazione)
+
+        except Exception as exc:
+            print('error ricercaData'.format(exc))
 
         return self.result
 
