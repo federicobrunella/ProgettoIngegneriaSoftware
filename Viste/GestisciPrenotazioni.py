@@ -191,6 +191,8 @@ class VistaPrenotazioni(QWidget):
         try:
             selected = self.listView.selectedIndexes()[0].data()
             id = int(selected.split("-")[1].strip().split(" ")[1])
+            print(id)
+
             self.vista_dettaglio_prenotazione = VistaDettaglioPrenotazione(id=id)
             self.vista_dettaglio_prenotazione.show()
         except Exception as exc:
