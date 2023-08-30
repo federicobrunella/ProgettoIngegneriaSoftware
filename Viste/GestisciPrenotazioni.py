@@ -191,9 +191,10 @@ class VistaPrenotazioni(QWidget):
         try:
             selected = self.listView.selectedIndexes()[0].data()
             id = int(selected.split("-")[1].strip().split(" ")[1])
-            self.vista_dettaglio_prenotazione = VistaDettaglioPrenotazione(codice=id)
+            self.vista_dettaglio_prenotazione = VistaDettaglioPrenotazione(id=id)
             self.vista_dettaglio_prenotazione.show()
-        except IndexError:
-            print("INDEX ERROR")
+        except Exception as exc:
+            print('error dettaglio' .format(exc))
+            print(id)
             return
 
