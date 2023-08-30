@@ -99,6 +99,7 @@ class GestionePrenotazioni:
 
         for pren in self.prenotazioni:
             if pren.id == id:
+                print('ok')
                 pren.idPrenotante = prenotazione.idPrenotante
                 pren.numPedana = prenotazione.numPedana
                 pren.oraInizio = prenotazione.oraInizio

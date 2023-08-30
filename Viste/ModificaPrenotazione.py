@@ -121,28 +121,28 @@ class VistaModificaPrenotazione(QWidget):
 
 
     def salva(self):
-        self.idPrenotante = int(self.lineEditIDPrenotante.text())
-        self.oraInizio = datetime(year=self.dateEditData.date().year(),
+        idPrenotante = int(self.lineEditIDPrenotante.text())
+
+        oraInizio = datetime(year=self.dateEditData.date().year(),
                                   month=self.dateEditData.date().month(),
                                   day=self.dateEditData.date().day(),
                                   hour=self.timeEditInizio.time().hour(),
                                   minute=self.timeEditInizio.time().minute())
 
-        self.oraFine = datetime(year=self.dateEditData.date().year(),
-                                  month=self.dateEditData.date().month(),
-                                  day=self.dateEditData.date().day(),
-                                  hour=self.timeEditFine.time().hour(),
-                                  minute=self.timeEditFine.time().minute())
+        oraFine = datetime(year=self.dateEditData.date().year(),
+                                month=self.dateEditData.date().month(),
+                                day=self.dateEditData.date().day(),
+                                hour=self.timeEditFine.time().hour(),
+                                minute=self.timeEditFine.time().minute())
 
-        self.numPedana = int(self.spinBoxPedana.text())
-        self.corso = self.checkBoxCorso.checkState()
+        numPedana = self.spinBoxPedana.value()
+        corso = self.checkBoxCorso.checkState()
 
 
-
-        prenotazione = Prenotazione(self.codice, self.idPrenotante,
-                                     self.oraInizio,
-                                     self.oraFine,
-                                     self.numPedana, self.corso)
+        prenotazione = Prenotazione(self.id, idPrenotante,
+                                     oraInizio,
+                                     oraFine,
+                                     numPedana, corso)
 
         controller = GestionePrenotazioni()
         controller.modificaPrenotazione(self.id, prenotazione)
