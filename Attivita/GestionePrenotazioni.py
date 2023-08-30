@@ -28,3 +28,21 @@ class GestionePrenotazioni:
 
         return codice
 
+    def ricercaPerPrenotante(self, campoRicerca):
+        self.result = []
+
+        self.prenotazioni = []
+        self.prenotazioni = self.getAllPrenotazioni()
+
+        try:
+            for prenotazione in self.prenotazioni:
+                if int(campoRicerca) == prenotazione.idPrenotante:
+                    self.result.append(prenotazione)
+
+        except Exception as exc:
+            print('error ricercaPrenotante'.format(exc))
+
+        return self.result
+
+
+

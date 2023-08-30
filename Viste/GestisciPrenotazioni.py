@@ -46,7 +46,7 @@ class VistaPrenotazioni(QWidget):
 
         self.pushButtonCercaNome.setText("Cerca")
         self.pushButtonCercaData.setText("Cerca")
-        self.label.setText("Cerca per Nome")
+        self.label.setText("Cerca per id Prenotante:")
         self.label_2.setText("Cerca per Data:")
         self.pushButtonNuovaPrenotazione.setText("Nuova Prenotazione")
         self.pushButtonIndietro.setText("Indietro")
@@ -55,6 +55,7 @@ class VistaPrenotazioni(QWidget):
 
         self.pushButtonIndietro.clicked.connect(self.indietro)
         self.pushButtonNuovaPrenotazione.clicked.connect(self.nuovaPrenotazione)
+        self.pushButtonCercaNome.clicked.connect(self.cercaPerPrenotante)
 
         self.setLayout(self.gridLayout)
         self.resize(1000, 800)
@@ -92,3 +93,26 @@ class VistaPrenotazioni(QWidget):
             self.listWidget.setModel(listview_model)
         except Exception as exc:
             print('error: {0}'.format(exc))
+
+
+    def cercaPerPrenotante(self):
+        campoRicerca = self.ricercaNome.text()
+        controller = GestionePrenotazioni()
+        self.result =[]
+        self.result = controller.ricercaPerPrenotante(campoRicerca)
+        print(self.result)
+
+        try:
+            listview_model = QStandardItemModel(self.listWidget)
+            for prenotazione in self.result:
+                item = QStandardItem()
+                nome = f"Id: {prenotazione.idPrenotante} - Inizio: {prenotazione.oraInizio} Fine: {prenotazione.oraFine}"
+                item.setText(nome)
+                item.setEditable(False)
+                font = item.font()
+                font.setPointSize(18)
+                item.setFont(font)
+                listview_model.appendRow(item)
+            self.listWidget.setModel(listview_model)
+        except Exception as exc:
+            print('error cercaPerPrenotante'.format(exc))
