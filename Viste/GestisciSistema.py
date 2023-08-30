@@ -1,9 +1,13 @@
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QListView
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from Viste.ImpostazioneOrari import VistaOrari
 from Viste.ImpostazionePrezzi import VistaPrezzi
 from Viste.ImpostazioniPedane import VistaPedane
+
+from Attivita.GestioneUtenti import GestioneUtenti
+from Attivita.GestioneSistema import GestioneSistema
 
 class VistaSistema(QWidget):
 
@@ -31,7 +35,7 @@ class VistaSistema(QWidget):
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 6, 0, 1, 3)
-        self.listView = QtWidgets.QListView()
+        self.listView = QListView()
         self.listView.setObjectName("listView")
         self.gridLayout.addWidget(self.listView, 7, 0, 1, 4)
         self.pushButtonNuovoOperatore = QtWidgets.QPushButton()
@@ -50,6 +54,15 @@ class VistaSistema(QWidget):
         self.pushButtonIndietro = QtWidgets.QPushButton()
         self.pushButtonIndietro.setObjectName("pushButtonIndietro")
         self.gridLayout.addWidget(self.pushButtonIndietro, 10, 0, 1, 1)
+        self.pushButtonElimina = QtWidgets.QPushButton()
+        self.pushButtonElimina.setObjectName("pushButtonElimina")
+        self.gridLayout.addWidget(self.pushButtonElimina, 8, 2, 1, 1)
+        self.pushButtonModifica = QtWidgets.QPushButton()
+        self.pushButtonModifica.setObjectName("pushButtonModifica")
+        self.gridLayout.addWidget(self.pushButtonModifica, 8, 1, 1, 1)
+        self.pushButtonDettagli = QtWidgets.QPushButton()
+        self.pushButtonDettagli.setObjectName("pushButtonDettagli")
+        self.gridLayout.addWidget(self.pushButtonDettagli, 8, 0, 1, 1)
 
         self.label_2.setText("Operazioni Amministratore:")
         self.pushButtonBackup.setText("Backup")
@@ -59,11 +72,21 @@ class VistaSistema(QWidget):
         self.pushButtonOrari.setText("Gestisci Orari")
         self.pushButtonPrezzi.setText("Gestisci Prezzi")
         self.pushButtonIndietro.setText("Indietro")
+        self.pushButtonElimina.setText("Elimina Operatore")
+        self.pushButtonModifica.setText("Modifica Operatore")
+        self.pushButtonDettagli.setText("Dettagli")
+
+        self.updateList()
 
         self.pushButtonIndietro.clicked.connect(self.indietro)
         self.pushButtonOrari.clicked.connect(self.gestisciOrari)
         self.pushButtonPrezzi.clicked.connect(self.gestisciPrezzi)
         self.pushButtonPedane.clicked.connect(self.gestisciPedane)
+
+        self.pushButtonElimina.clicked.connect(self.eliminaUtente)
+        self.pushButtonDettagli.clicked.connect(self.dettagliUtente)
+        self.pushButtonModifica.clicked.connect(self.modificaUtente)
+        self.pushButtonNuovoOperatore.clicked.connect(self.nuovoUtente)
 
         self.setLayout(self.gridLayout)
         self.resize(1000, 800)
@@ -83,3 +106,46 @@ class VistaSistema(QWidget):
     def gestisciPedane(self):
         self.vista_pedande = VistaPedane()
         self.vista_pedande.show()
+
+    def nuovoUtente(self):
+        pass
+
+    def eliminaUtente(self):
+        try:
+            selected = self.listView.selectedIndexes()[0].data()
+            codice = int(selected.split("-")[1].strip().split(" ")[1])
+            print(codice)
+            controller = GestioneUtenti()
+            controller.eliminaTesserato(codice=codice, callback=self.updateList)
+        except IndexError:
+            print("INDEX ERROR")
+            return
+
+    def modificaUtente(self):
+        pass
+
+    def dettagliUtente(self):
+        pass
+
+    def loadUtenti(self):
+        controller = GestioneUtenti()
+        self.utenti = controller.getAllUtenti()
+
+    def updateList(self):
+        self.utenti = []
+        self.loadUtenti()
+
+        try:
+            listview_model = QStandardItemModel(self.listView)
+            for utente in self.utenti:
+                item = QStandardItem()
+                nome = f"{utente.username} {utente.nome} {utente.cognome} - Codice: {utente.codice}"
+                item.setText(nome)
+                item.setEditable(False)
+                font = item.font()
+                font.setPointSize(18)
+                item.setFont(font)
+                listview_model.appendRow(item)
+            self.listView.setModel(listview_model)
+        except Exception as exc:
+            print('error: {0}'.format(exc))
