@@ -7,6 +7,7 @@ from Viste.ImpostazionePrezzi import VistaPrezzi
 from Viste.ImpostazioniPedane import VistaPedane
 from Viste.DettaglioUtente import VistaDettaglioUtente
 from Viste.NuovoUtente import VistaNuovoUtente
+from Viste.ModificaUtente import VistaModificaUtente
 
 from Attivita.GestioneUtenti import GestioneUtenti
 
@@ -127,7 +128,15 @@ class VistaSistema(QWidget):
             return
 
     def modificaUtente(self):
-        pass
+        try:
+            selected = self.listView.selectedIndexes()[0].data()
+            codice = int(selected.split("-")[1].strip().split(" ")[1])
+            print(codice)
+            self.vista_modifica_utente = VistaModificaUtente(codice=codice, callback=self.updateList)
+            self.vista_modifica_utente.show()
+        except IndexError:
+            print("INDEX ERROR")
+            return
 
     def dettagliUtente(self):
         try:

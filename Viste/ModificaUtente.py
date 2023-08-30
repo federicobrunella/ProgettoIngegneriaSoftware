@@ -1,14 +1,15 @@
 from datetime import datetime
 
+from PyQt5.QtCore import QTime
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from Attivita.GestioneUtenti import GestioneUtenti
 from Attivita.Utente import Utente
 
-class VistaNuovoUtente(QWidget):
+class VistaModificaUtente(QWidget):
     def __init__(self, codice, callback=None, parent=None):
-        super(VistaNuovoUtente, self).__init__(parent)
+        super(VistaModificaUtente, self).__init__(parent)
         self.callback = callback
         self.codice = codice
         self.gridLayout = QGridLayout()
@@ -133,7 +134,7 @@ class VistaNuovoUtente(QWidget):
                         self.dataNascita, self.cognome, self.codFiscale, self.codice)
 
         controller = GestioneUtenti()
-        controller.aggiungiUtente(utente)
+        controller.modificaUtente(self.codice, utente)
 
         self.callback()
         self.close()

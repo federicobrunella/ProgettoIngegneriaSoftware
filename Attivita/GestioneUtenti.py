@@ -47,3 +47,21 @@ class GestioneUtenti:
         for utente in self.utenti:
             if utente.codice == codice:
                 return utente
+
+    def modificaUtente(self, codice, utenteMod):
+        self.utenti = []
+        self.utenti = self.getAllUtenti()
+
+        for utente in self.utenti:
+            if utente.codice == codice:
+                utente.nome = utenteMod.nome
+                utente.cognome = utenteMod.cognome
+                utente.codiceFiscale = utenteMod.codiceFiscale
+                utente.dataNascita = utenteMod.dataNascita
+                utente.username = utenteMod.username
+                utente.password = utenteMod.password
+                utente.telefono = utenteMod.telefono
+                utente.email = utenteMod.email
+
+        self.salvaAllUtenti(self.utenti)
+
