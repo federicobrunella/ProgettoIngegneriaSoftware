@@ -5,9 +5,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from Viste.ImpostazioneOrari import VistaOrari
 from Viste.ImpostazionePrezzi import VistaPrezzi
 from Viste.ImpostazioniPedane import VistaPedane
+from Viste.DettaglioUtente import VistaDettaglioUtente
 
 from Attivita.GestioneUtenti import GestioneUtenti
-from Attivita.GestioneSistema import GestioneSistema
 
 class VistaSistema(QWidget):
 
@@ -125,7 +125,14 @@ class VistaSistema(QWidget):
         pass
 
     def dettagliUtente(self):
-        pass
+        try:
+            selected = self.listView.selectedIndexes()[0].data()
+            codice = int(selected.split("-")[1].strip().split(" ")[1])
+            self.vista_dettaglio_utente = VistaDettaglioUtente(codice=codice)
+            self.vista_dettaglio_utente.show()
+        except IndexError:
+            print("INDEX ERROR")
+            return
 
     def loadUtenti(self):
         controller = GestioneUtenti()
