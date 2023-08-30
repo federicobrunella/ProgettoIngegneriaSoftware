@@ -3,10 +3,11 @@ import pickle
 
 from Attivita.Utente import Utente
 
-utente1 = Utente("utente1", "password", "", "", "", "", "", "", 1)
-utente2 = Utente("utente2", "password", "", "", "", "", "", "", 2)
+utente0 = Utente("admin", "admin", "", "Paolo", "", "", "Rossi", "", 1)
+utente1 = Utente("utente1", "password", "", "Roberto", "", "", "Verdi", "", 1)
+utente2 = Utente("utente2", "password", "", "Luigi", "", "", "Bianchi", "", 2)
 
-utenti = [utente1, utente2]
+utenti = [utente0, utente1, utente2]
 
 with open('utenti.pickle', 'wb') as f:
     pickle.dump(utenti, f, pickle.HIGHEST_PROTOCOL)

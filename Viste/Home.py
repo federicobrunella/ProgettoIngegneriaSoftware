@@ -55,6 +55,9 @@ class VistaHome(QWidget):
         self.label.setText("Current User:")
         self.label_2.setText(self.utenteLoggato.username)
 
+        if(self.utenteLoggato.username != "admin"):
+            self.sistemaPushButton.setDisabled(True)
+
         self.prenotazioniPushButton.clicked.connect(self.gestisciPrenotazioni)
         self.sistemaPushButton.clicked.connect(self.gestisciSistema)
         self.tesseratiPushButton.clicked.connect(self.gestisciTesserati)
