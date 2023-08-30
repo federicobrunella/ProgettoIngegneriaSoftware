@@ -181,6 +181,7 @@ class VistaPrenotazioni(QWidget):
         try:
             selected = self.listView.selectedIndexes()[0].data()
             id = int(selected.split("-")[1].strip().split(" ")[1])
+            print(id)
             self.vista_modifica_prenotazione = VistaModificaPrenotazione(id=id, callback=self.updateList)
             self.vista_modifica_prenotazione.show()
         except IndexError:
