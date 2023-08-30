@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from Attivita.GestioneSistema import GestioneSistema
+
 class VistaPedane(QWidget):
 
     def __init__(self, parent=None):
@@ -33,6 +35,8 @@ class VistaPedane(QWidget):
         self.pushButtonSalva.setText("Salva")
         self.label.setText("Pedane")
 
+        self.carica()
+
         self.pushButtonIndietro.clicked.connect(self.indietro)
         self.pushButtonSalva.clicked.connect(self.salva)
 
@@ -44,5 +48,14 @@ class VistaPedane(QWidget):
         self.close()
 
     def salva(self):
+        numPedane = int(self.spinBoxNumPedane.text())
+        controller = GestioneSistema()
+        controller.salvaPedane(numPedane)
         self.close()
+
+    def carica(self):
+        controller = GestioneSistema()
+        sistema = controller.getCurrentSistema()
+
+        self.spinBoxNumPedane.setValue(sistema.numPedane)
 

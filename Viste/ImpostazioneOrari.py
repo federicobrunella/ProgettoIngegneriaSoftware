@@ -1,5 +1,11 @@
+from datetime import datetime
+
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+from PyQt5.QtCore import QTime
+
+from Attivita.GestioneSistema import GestioneSistema
 
 class VistaOrari(QWidget):
 
@@ -55,6 +61,8 @@ class VistaOrari(QWidget):
         self.label.setText("Orari Prenotazioni:")
         self.label_4.setText("Fine Giornata")
 
+        self.carica()
+
         self.pushButtonIndietro.clicked.connect(self.indietro)
         self.pushButtonSalva.clicked.connect(self.salva)
 
@@ -66,4 +74,25 @@ class VistaOrari(QWidget):
         self.close()
 
     def salva(self):
+
+        oreInizio = self.timeEditInizio.time().hour()
+        minutiInizio = self.timeEditInizio.time().minute()
+
+        oreFine = self.timeEditFine.time().hour()
+        minutiFine = self.timeEditFine.time().minute()
+
+        controller = GestioneSistema()
+        controller.salvaOrari(int(self.lineEditDurataSlot.text()),
+                              datetime(year=2000, month=1, day=1, hour=oreInizio, minute=minutiInizio),
+                              datetime(year=2000, month=1, day=1, hour=oreFine, minute=minutiFine))
+
         self.close()
+
+    def carica(self):
+        controller = GestioneSistema()
+        sistema = controller.getCurrentSistema()
+
+        self.lineEditDurataSlot.setText(str(sistema.durataSlotPrenotazione))
+
+        self.timeEditInizio.setTime(QTime(sistema.orarioInizioGiornata.hour, sistema.orarioInizioGiornata.minute, 0))
+        self.timeEditFine.setTime(QTime(sistema.orarioFineGiornata.hour, sistema.orarioFineGiornata.minute, 0))

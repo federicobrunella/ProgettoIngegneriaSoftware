@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from Attivita.GestioneSistema import GestioneSistema
+
 class VistaPrezzi(QWidget):
 
     def __init__(self, parent=None):
@@ -38,6 +40,8 @@ class VistaPrezzi(QWidget):
         self.pushButtonSalva.setText("Salva")
         self.label.setText("Prezzi")
 
+        self.carica()
+
         self.pushButtonIndietro.clicked.connect(self.indietro)
         self.pushButtonSalva.clicked.connect(self.salva)
 
@@ -48,5 +52,17 @@ class VistaPrezzi(QWidget):
     def indietro(self):
         self.close()
 
+    def carica(self):
+        controller = GestioneSistema()
+        sistema = controller.getCurrentSistema()
+
+        self.lineEditPrezzo.setText(str(sistema.prezzoTess))
+
+
     def salva(self):
+        prezzo = float(self.lineEditPrezzo.text())
+
+        controller = GestioneSistema()
+        controller.salvaPrezzo(prezzo)
+
         self.close()

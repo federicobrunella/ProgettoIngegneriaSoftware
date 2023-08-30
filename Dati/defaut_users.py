@@ -4,7 +4,7 @@ import pickle
 from Attivita.Utente import Utente
 
 utente1 = Utente("utente1", "password", "", "", "", "", "", "", 1)
-utente2 = Utente("utente2", "password", "", "", "", "", "", "", 1)
+utente2 = Utente("utente2", "password", "", "", "", "", "", "", 2)
 
 utenti = [utente1, utente2]
 
