@@ -5,6 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from Attivita.GestionePrenotazioni import GestionePrenotazioni
 from Viste.NuovaPrenotazione import VistaNuovaPrenotazione
 from Viste.ModificaPrenotazione import VistaModificaPrenotazione
+from Viste.DettaglioPrenotazione import VistaDettaglioPrenotazione
 
 
 class VistaPrenotazioni(QWidget):
@@ -190,7 +191,7 @@ class VistaPrenotazioni(QWidget):
         try:
             selected = self.listView.selectedIndexes()[0].data()
             id = int(selected.split("-")[1].strip().split(" ")[1])
-            self.vista_dettaglio_prenotazione = VistaDettaglioPrenotazione(codice=id)
+            self.vista_dettaglio_prenotazione = VistaDettaglioPrenotazione(id=id)
             self.vista_dettaglio_prenotazione.show()
         except IndexError:
             print("INDEX ERROR")
