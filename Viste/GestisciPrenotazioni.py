@@ -201,3 +201,4 @@ class VistaPrenotazioni(QWidget):
         except IndexError:
             print("INDEX ERROR")
             return
+
