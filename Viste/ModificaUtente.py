@@ -96,7 +96,7 @@ class VistaModificaUtente(QWidget):
         self.lineEditPassword.setObjectName("lineEditPassword")
         self.gridLayout.addWidget(self.lineEditPassword, 11, 1, 1, 1)
 
-        self.label.setText("Nuovo Operatore:")
+        self.label.setText("Modifica Operatore:")
         self.pushButtonSalva.setText("Salva")
         self.label_7.setText("Email:")
         self.label_5.setText("Telefono:")
@@ -106,6 +106,17 @@ class VistaModificaUtente(QWidget):
         self.label_6.setText("Data Nascita")
         self.label_4.setText("Codice Fiscale:")
         self.label_9.setText("Password:")
+
+        controller = GestioneUtenti()
+        utente = controller.ricercaPerCodice(self.codice)
+
+        self.lineEditNome.setText(utente.nome)
+        self.lineEditCognome.setText(utente.cognome)
+        self.lineEditEmail.setText(utente.email)
+        self.lineEditUsername.setText(utente.username)
+        self.lineEditPassword.setText(utente.password)
+        self.lineEditCodFiscale.setText(utente.codiceFiscale)
+        self.lineEditTelefono.setText(utente.telefono)
 
         self.pushButtonSalva.clicked.connect(self.salva)
 

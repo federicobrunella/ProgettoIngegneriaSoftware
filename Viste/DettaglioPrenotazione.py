@@ -89,7 +89,10 @@ class VistaDettaglioPrenotazione(QWidget):
         self.labelIDPrenotante.setText(str(prenotazione.idPrenotante))
         self.labelOraInizio.setText(str(prenotazione.oraInizio))
         self.label_6.setText("Numero Pedana")
-        self.labelCorso.setText(str(prenotazione.corso))
+        if prenotazione.corso == 0:
+            self.labelCorso.setText("NO")
+        else:
+            self.labelCorso.setText("SI")
 
         self.pushButton.clicked.connect(self.indietro)
 
