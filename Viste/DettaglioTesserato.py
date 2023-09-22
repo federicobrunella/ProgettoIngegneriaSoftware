@@ -94,17 +94,23 @@ class VistaDettaglioTesserato(QWidget):
 
         self.labelNome.setText(tesserato.nome)
         self.labelTelefono.setText(tesserato.telefono)
-        self.labelScadenza.setText("TextLabel")
+        self.labelScadenza.setText(str(tesserato.scadenza))
         self.label_9.setText("Certificato Medico:")
-        self.labelDataNascita.setText("TextLabel")
+        self.labelDataNascita.setText(str(tesserato.dataNascita))
         self.pushButton.setText("Ok")
         self.labelCognome.setText(tesserato.cognome)
         self.label_3.setText("Data di Nascita:")
         self.label_10.setText("Telefono:")
-        self.labelCertificato.setText("TextLabel")
+        if tesserato.certificato == 0:
+            self.labelCertificato.setText("NO")
+        else:
+            self.labelCertificato.setText("SI")
         self.labelcodFiscale.setText(tesserato.codiceFiscale)
         self.label_4.setText("Cognome")
-        self.labelIstruttore.setText("TextLabel")
+        if tesserato.istruttore == 0:
+            self.labelIstruttore.setText("NO")
+        else:
+            self.labelIstruttore.setText("SI")
         self.label_8.setText("Email")
         self.label_5.setText("Istruttore:")
         self.labelEmail.setText(tesserato.email)
