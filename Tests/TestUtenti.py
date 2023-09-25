@@ -1,4 +1,6 @@
+import pickle
 import unittest
+import os
 
 from Attivita.Utente import Utente
 from Attivita.GestioneUtenti import GestioneUtenti
@@ -20,6 +22,12 @@ class UtentiModuleTest(unittest.TestCase):
         verifica = controller.ricercaPerCodice(codice)
 
         assert(verifica.username == utente.username)
+
+    def testRicerca(self):
+        controller = GestioneUtenti()
+        codice = controller.getLastCodice()
+
+        assert(controller.ricercaPerCodice(codice).username == "testUser")
 
 if __name__ == '__main__':
     unittest.main()
