@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+
 
 from Viste.Home import VistaHome
 from Attivita.GestioneUtenti import GestioneUtenti
@@ -18,6 +20,7 @@ class VistaLogin(QWidget):
         self.gridLayout.addWidget(self.lineEdit, 2, 1, 1, 1)
         self.lineEdit_2 = QtWidgets.QLineEdit()
         self.lineEdit_2.setObjectName("lineEdit_2")
+        self.lineEdit_2.setEchoMode(QtWidgets.QLineEdit().Password)
         self.gridLayout.addWidget(self.lineEdit_2, 3, 1, 1, 1)
         self.label_3 = QtWidgets.QLabel()
         self.label_3.setObjectName("label_3")
@@ -59,10 +62,20 @@ class VistaLogin(QWidget):
         self.utenti = []
         self.loadUtenti()
 
+        logged = False
+
         for utente in self.utenti:
             if(utente.username == username and utente.password == password):
-                print('Login ok')
+                logged = True
                 self.vista_home = VistaHome(utente)
                 self.vista_home.show()
                 self.close()
+
+        if not logged:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Errore di Autenticazione!")
+            msg.setInformativeText('Username o Password ERRATI, riprovare!')
+            msg.setWindowTitle("Errore")
+            msg.exec_()
 
