@@ -1,8 +1,9 @@
 import pickle
-from datetime import date, datetime
 
 
 class GestionePrenotazioni:
+
+    #Prende tutte le prenotazioni nel file pickle
     def getAllPrenotazioni(self):
         with open('Dati/prenotazioni.pickle', 'rb') as f:
             try:
@@ -11,10 +12,12 @@ class GestionePrenotazioni:
                 print('Got pickling error: {0}'.format(exc))
             return prenotazioni
 
+    #Salva all'interno del file pickle tutte le prenotazioni
     def salvaAllPrenotazioni(self, prenotazioni):
         with open('Dati/prenotazioni.pickle', 'wb') as f:
             pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
 
+    #Aggiunge una singola prenotazione all'interno del file pickle
     def aggiungiPrenotazione(self, prenotazione):
         self.prenotazioni = []
         self.prenotazioni = self.getAllPrenotazioni()
@@ -22,6 +25,7 @@ class GestionePrenotazioni:
         self.prenotazioni.append(prenotazione)
         self.salvaAllPrenotazioni(self.prenotazioni)
 
+    #Prende l'id dell'ultima prenotazione sul file pickle
     def getLastCodice(self):
         self.prenotazioni = []
         self.prenotazioni = self.getAllPrenotazioni()
@@ -30,6 +34,7 @@ class GestionePrenotazioni:
 
         return codice
 
+    #Ricerca una prenotazione all'interno del file pickle tramite l'id di un prenotante
     def ricercaPerPrenotante(self, campoRicerca):
         self.result = []
 
@@ -46,6 +51,7 @@ class GestionePrenotazioni:
 
         return self.result
 
+    #Ricerca una prenotazione all'interno del file pickle tramite la data di prenotazione
     def ricercaPerData(self, campoRicerca):
         self.result = []
 
@@ -71,6 +77,7 @@ class GestionePrenotazioni:
         return self.result
 
 
+    #Elimina una prenotazione all'interno del file pickle
     def eliminaPrenotazione(self, id, callback=None):
         self.callback = callback
         self.prenotazioni = []
@@ -85,6 +92,7 @@ class GestionePrenotazioni:
         self.salvaAllPrenotazioni(self.prenotazioni)
         self.callback()
 
+    #Ricerca una prenotazione con un id
     def ricercaPerId(self, id):
         self.prenotazioni = []
         self.prenotazioni = self.getAllPrenotazioni()
@@ -93,6 +101,7 @@ class GestionePrenotazioni:
             if prenotazione.id == id:
                 return prenotazione
 
+    #Modifica una prenotazione
     def modificaPrenotazione(self, id, prenotazione):
         self.prenotazioni = []
         self.prenotazioni = self.getAllPrenotazioni()

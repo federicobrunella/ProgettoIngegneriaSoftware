@@ -1,6 +1,3 @@
-import os
-import pickle
-
 from PyQt5.QtWidgets import QWidget, QGridLayout
 from PyQt5 import QtCore, QtGui, QtWidgets
 

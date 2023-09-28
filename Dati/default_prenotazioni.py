@@ -3,6 +3,8 @@ from datetime import datetime
 
 from Attivita.Prenotazione import Prenotazione
 
+#File per popolare con alcuni elementi di default il file pickle delle prenotazioni
+
 prenotazione1 = Prenotazione(1, 1,
                              datetime(year=2023, month=12, day=12, hour=14, minute=0),
                              datetime(year=2023, month=12, day=12, hour=15, minute=0),

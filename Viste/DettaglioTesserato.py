@@ -1,9 +1,6 @@
-from datetime import datetime
+from PyQt5.QtWidgets import QWidget, QGridLayout
+from PyQt5 import QtGui, QtWidgets
 
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
-from PyQt5 import QtCore, QtGui, QtWidgets
-
-from Attivita.Tesserato import Tesserato
 from Attivita.GestioneTesserati import GestioneTesserati
 
 class VistaDettaglioTesserato(QWidget):

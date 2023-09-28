@@ -1,10 +1,7 @@
-from datetime import datetime
-
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QWidget, QGridLayout
+from PyQt5 import QtGui, QtWidgets
 
 from Attivita.GestioneUtenti import GestioneUtenti
-from Attivita.Utente import Utente
 
 class VistaDettaglioUtente(QWidget):
     def __init__(self, codice, callback=None, parent=None):
@@ -94,7 +91,7 @@ class VistaDettaglioUtente(QWidget):
         self.label_11.setText("Codice:")
         self.label_5.setText("Username:")
         self.labelTelefono.setText(str(utente.telefono))
-        self.labelDataNascita.setText("TextLabel")
+        self.labelDataNascita.setText(str(utente.dataNascita.date()))
         self.labelPassword.setText(utente.password)
         self.label_8.setText("Email")
         self.labelCognome.setText(utente.cognome)

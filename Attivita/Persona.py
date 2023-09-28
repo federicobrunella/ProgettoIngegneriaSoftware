@@ -2,6 +2,7 @@ import datetime
 
 class Persona:
 
+    #Costruttore
     def __init__(self, telefono = "", nome = "", email = "", dataNascita = "", cognome = "", codiceFiscale = "", codice = -1):
         self.codice = codice
         self.codiceFiscale = codiceFiscale
@@ -12,6 +13,7 @@ class Persona:
         self.telefono = telefono
 
 
+    #Restituisce tutti gli attributi della persona
     def getInfoPersona(self):
         return {
             "codice": self.codice,
@@ -23,6 +25,7 @@ class Persona:
             "telefono": self.telefono
         }
 
+    #Elimina tutti gli attributi della persona
     def resetPersona(self):
         self.codice = -1
         self.codiceFiscale = ""

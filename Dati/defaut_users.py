@@ -3,6 +3,8 @@ import pickle
 
 from Attivita.Utente import Utente
 
+#File per popolare con alcuni elementi di default il file pickle degli utenti
+
 utente0 = Utente("admin", "admin", "", "Paolo", "", "", "Rossi", "", 1)
 utente1 = Utente("utente1", "password", "", "Roberto", "", "", "Verdi", "", 1)
 utente2 = Utente("utente2", "password", "", "Luigi", "", "", "Bianchi", "", 2)

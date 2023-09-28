@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from PyQt5.QtCore import QTime
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QWidget, QGridLayout
+from PyQt5 import QtGui, QtWidgets
 
 from Attivita.GestionePrenotazioni import GestionePrenotazioni
 from Attivita.Prenotazione import Prenotazione

@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QListView
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QWidget, QGridLayout, QListView
+from PyQt5 import QtWidgets
 
 from Attivita.GestionePrenotazioni import GestionePrenotazioni
 from Viste.NuovaPrenotazione import VistaNuovaPrenotazione

@@ -3,6 +3,8 @@ from datetime import datetime
 
 from Attivita.Sistema import Sistema
 
+#File per popolare con alcuni elementi di default il file pickle del sistema
+
 sistema = Sistema(60, datetime(year=2000, month=1, day=1, hour=8, minute=0),
                   datetime(year=2000, month=1, day=1, hour=19, minute=0), 20, 109.92)
 

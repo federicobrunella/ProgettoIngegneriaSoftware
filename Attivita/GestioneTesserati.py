@@ -2,6 +2,7 @@ import pickle
 
 class GestioneTesserati:
 
+    #Restituisce tutti i tesserati del file pickle
     def getAllTesserati(self):
         with open('Dati/tesserati.pickle', 'rb') as f:
             try:
@@ -10,6 +11,7 @@ class GestioneTesserati:
                 print('Got pickling error: {0}'.format(exc))
             return tesserati
 
+    #Restituisce il codice dell'ultimo tesserato
     def getLastCodice(self):
         self.tesserati = []
         self.tesserati = self.getAllTesserati()
@@ -18,10 +20,12 @@ class GestioneTesserati:
 
         return codice
 
+    #Salva tutti i tesserati all'interno del file pickle
     def salvaAllTesserati(self, tesserati):
         with open('Dati/tesserati.pickle', 'wb') as f:
             pickle.dump(tesserati, f, pickle.HIGHEST_PROTOCOL)
 
+    #Aggiunge un tesserato
     def aggiungiTeserato(self, tesserato):
         self.tesserati = []
         self.tesserati = self.getAllTesserati()
@@ -29,6 +33,7 @@ class GestioneTesserati:
         self.tesserati.append(tesserato)
         self.salvaAllTesserati(self.tesserati)
 
+    #Elimina un tesserato
     def eliminaTesserato(self, codice, callback=None):
         self.callback = callback
         self.tesserati = []
@@ -41,6 +46,7 @@ class GestioneTesserati:
         self.salvaAllTesserati(self.tesserati)
         self.callback()
 
+    #Modifica un tesserato
     def modificaTesserato(self, codice, tesseratoModificato, callback=None):
         self.callback = callback
         self.tesserati = []
@@ -58,17 +64,16 @@ class GestioneTesserati:
 
         self.salvaAllTesserati(self.tesserati)
 
-    def cercaTesseratoPerNome(self, nome, cognome):
-        pass
-
+    #restituisce un tesserato dal file pickle tramite un codice
     def getTesseratoPerCodice(self, codice):
         self.tesserati = []
         self.tesserati = self.getAllTesserati()
 
         for tesserato in self.tesserati:
-            if(tesserato.codice == codice):
+            if tesserato.codice == codice:
                 return tesserato
 
+    #Restituisce tutti i tesserati con un nome uguale al campoRicerca
     def ricercaPerNominativo(self, campoRicerca):
         self.result = []
 

@@ -1,6 +1,4 @@
-import pickle
 import unittest
-import os
 
 from Attivita.Utente import Utente
 from Attivita.GestioneUtenti import GestioneUtenti
@@ -12,10 +10,8 @@ class UtentiModuleTest(unittest.TestCase):
 
         codice = controller.getLastCodice() + 1
 
-        utente = Utente("testUser", "testUser",
-                        "2334435454", "testUser",
-                        "tesstUser@email.it", "",
-                        "testUser", "BRNDEO2324", codice)
+        utente = Utente("testUser", "testUser", "2334435454", "testUser",
+                        "tesstUser@email.it", "", "testUser", "BRNDEO2324", codice)
 
         controller.aggiungiUtente(utente)
 

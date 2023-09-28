@@ -3,6 +3,8 @@ from datetime import datetime
 
 from Attivita.Tesserato import Tesserato
 
+#File per popolare con alcuni elementi di default il file pickle dei tesserati
+
 tesserato1 = Tesserato(0,2,
                        datetime(year=2024, month=1, day=1),
                        "3663745504", "Paolo", "p.r@email.it",

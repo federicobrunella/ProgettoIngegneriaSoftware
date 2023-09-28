@@ -1,8 +1,6 @@
-import pickle
-
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QSizePolicy, QListView
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QWidget, QGridLayout, QListView
+from PyQt5 import QtGui, QtWidgets
 
 from Viste.NuovoTesserato import VistaNuovoTesserato
 from Attivita.GestioneTesserati import GestioneTesserati
