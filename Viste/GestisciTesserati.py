@@ -80,6 +80,7 @@ class VistaTesserati(QWidget):
         self.pushButtonDettagli.clicked.connect(self.dettaglioTesserato)
         self.pushButtonCerca.clicked.connect(self.cerca)
         self.pushButtonTutti.clicked.connect(self.mostraTutti)
+        self.pushButtonRinnova.setDisabled(True)
 
         self.setLayout(self.gridLayout)
         self.resize(1000, 800)
