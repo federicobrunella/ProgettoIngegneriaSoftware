@@ -90,6 +90,8 @@ class VistaSistema(QWidget):
         self.pushButtonModifica.clicked.connect(self.modificaUtente)
         self.pushButtonNuovoOperatore.clicked.connect(self.nuovoUtente)
 
+        self.pushButtonBackup.setDisabled(True)
+
         self.setLayout(self.gridLayout)
         self.resize(1000, 800)
         self.setWindowTitle("Gestionale Palestra Scherma - Sistema")
